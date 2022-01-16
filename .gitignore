@@ -1,0 +1,7 @@
+# Dev
+/venv/
+__pycache__/
+.vscode/
+
+# Data
+*.png
