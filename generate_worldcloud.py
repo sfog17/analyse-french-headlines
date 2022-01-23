@@ -2,6 +2,7 @@ import csv
 import re
 from collections import Counter
 from pathlib import Path
+from traceback import print_tb
 from typing import List, Literal, Optional, get_args
 import nltk
 from wordcloud import WordCloud
@@ -58,11 +59,12 @@ def generate_frequencies(articles: List[str]) -> Counter:
 
 def plot_wordcloud(word: Optional[str] = None, website: Optional[Website] = None):
     if word:
-        print(f"Generating word cloud for candidatee {word}")
+        print(f"Generating word cloud for candidate {word}")
         regex_pattern = re.compile(word, re.IGNORECASE)
     else:
         regex_pattern = None
     freq = generate_frequencies(filter_articles(regex_pattern, website))
+    print(freq.most_common(30))
     wordcloud = WordCloud().generate_from_frequencies(freq)
     imagefile = wordcloud.to_image()
     with imagefile:
